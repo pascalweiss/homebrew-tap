@@ -9,7 +9,7 @@ class YtTranscribe < Formula
 
   depends_on "cmake" => :build
   depends_on "ffmpeg"
-  depends_on "python@3.13"
+  depends_on "python@3.14"
 
   resource "certifi" do
     url "https://files.pythonhosted.org/packages/e0/2d/a891ca51311197f6ad14a7ef42e2399f36cf2f9bd44752b3dc4eab60fdc5/certifi-2026.1.4.tar.gz"
