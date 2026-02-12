@@ -7,9 +7,9 @@ class YtTranscribe < Formula
   sha256 "420970d4000f04a2704387540e0fbf40f4610f830c9e55d94938b1098019523a"
   license "MIT"
 
-  depends_on "cmake" => :build
+  depends_on arch: :arm64
   depends_on "ffmpeg"
-  depends_on "python@3.14"
+  depends_on "python@3.12"
 
   resource "certifi" do
     url "https://files.pythonhosted.org/packages/e0/2d/a891ca51311197f6ad14a7ef42e2399f36cf2f9bd44752b3dc4eab60fdc5/certifi-2026.1.4.tar.gz"
@@ -56,11 +56,6 @@ class YtTranscribe < Formula
     sha256 "636cb2477cec7f8952536970bc533bc43743542f70392ae026374600add5b887"
   end
 
-  resource "pywhispercpp" do
-    url "https://files.pythonhosted.org/packages/f6/7d/fe4b2b190d6cdcf0d5e4ca2b946d73bc449a586606a24d25ff50ffec5a5c/pywhispercpp-1.4.1.tar.gz"
-    sha256 "520ce9275bb6fc81e0daa2e08144a80ee006b117a18058a77860c5b1c9c122f4"
-  end
-
   resource "pyyaml" do
     url "https://files.pythonhosted.org/packages/05/8e/961c0007c59b8dd7729d542c61a4d537767a59645b82a0b521206e1e25c2/pyyaml-6.0.3.tar.gz"
     sha256 "d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f"
@@ -92,7 +87,14 @@ class YtTranscribe < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec, "python3.12")
+    # Install pywhispercpp from pre-built wheel on PyPI.
+    # Building from source tarball picks up the wrong Python via CMake,
+    # producing a .so linked against the wrong CPython version.
+    python = libexec/"bin/python"
+    system python, "-m", "pip", "install", "--no-deps", "pywhispercpp==1.4.1"
+    venv.pip_install resources
+    venv.pip_install_and_link buildpath
   end
 
   test do
