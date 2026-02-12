@@ -3,8 +3,8 @@ class YtTranscribe < Formula
 
   desc "Download and transcribe YouTube videos using yt-dlp and whisper-cpp"
   homepage "https://github.com/pascalweiss/yt-transcribe"
-  url "https://files.pythonhosted.org/packages/1a/ca/bdd7505a9a627a5f2eedd4582ec7abd35679cb4a6161a63b885a63f2fb74/yt_transcribe-0.2.0.tar.gz"
-  sha256 "420970d4000f04a2704387540e0fbf40f4610f830c9e55d94938b1098019523a"
+  url "https://files.pythonhosted.org/packages/d1/58/9885453e78a019a7df3d7cc51e2108368961213ad7a8e2a7cb349773994e/yt_transcribe-0.2.1.tar.gz"
+  sha256 "1ff515e8a76e1d8c79ecdbc82c5618602f033129e3ca35a41c3218ef9e080603"
   license "MIT"
 
   depends_on arch: :arm64
